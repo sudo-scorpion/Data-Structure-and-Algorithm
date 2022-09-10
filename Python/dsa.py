@@ -24,3 +24,32 @@ def isPerfectNumber(n):
     return sum == n
 
 print(isPerfectNumber(6))
+
+
+### PRIME NUMBER ###
+
+# A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+
+# Write a function to check if a given number is prime or not.
+
+# Examples:
+
+# Input: n = 11
+# Output: true
+# There is no number between 1 and 11
+# that can divide 11.
+
+# Input: n = 15
+# Output: false
+# There are numbers between 1 and 15
+# that can divide 15.
+
+def isPrimeNumber(n):
+    if n <= 1:
+        return False
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+
+print("isPrimeNumber: ", isPrimeNumber(11))
