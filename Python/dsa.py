@@ -190,3 +190,353 @@ def isArmstrongNumber(n):
     return sum == n
 
 print("isArmstrongNumber: ", isArmstrongNumber(153))
+
+
+### ARMSTRONG NUMBER IN RANGE ###
+
+# Write a function to print all Armstrong numbers in a given range.
+
+# Examples:
+
+# Input: low = 100, high = 500
+# Output: 153, 370, 371, 407
+
+# Input: low = 1000, high = 5000
+# Output: 1534, 3704, 3714, 4074
+
+def armstrongNumbersInRange(low, high):
+    for i in range(low, high):
+        if isArmstrongNumber(i):
+            print(i)
+
+print("armstrongNumbersInRange 100, 500: ")
+armstrongNumbersInRange(100, 500)
+
+### BUBBLE SORT ###
+
+# Bubble sort is a simple sorting algorithm that repeatedly steps through the list to be sorted, compares each pair of adjacent items and swaps them if they are in the wrong order.
+
+# Write a function to sort a given list using bubble sort.
+
+# Examples:
+
+# Input: arr = [64, 34, 25, 12, 22, 11, 90]
+# Output: [11, 12, 22, 25, 34, 64, 90]
+
+# Input: arr = [64, 34, 25, 12, 22, 11, 90, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 22, 25, 34, 64, 90]
+
+def bubbleSort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+print("bubbleSort: ", bubbleSort([64, 34, 25, 12, 22, 11, 90]))
+
+### SELECTION SORT ###
+
+# Selection sort is a simple sorting algorithm. This sorting algorithm is an in-place comparison-based algorithm in which the list is divided into two parts, the sorted part at the left end and the unsorted part at the right end.
+
+# Write a function to sort a given list using selection sort.
+
+# Examples:
+
+# Input: arr = [64, 25, 12, 22, 11]
+# Output: [11, 12, 22, 25, 64]
+
+# Input: arr = [64, 34, 25, 12, 22, 11, 90, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 22, 25, 34, 64, 90]
+
+def selectionSort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_idx = i
+        for j in range(i+1, n):
+            if arr[min_idx] > arr[j]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    return arr
+
+print("selectionSort: ", selectionSort([64, 25, 12, 22, 11]))
+
+### INSERTION SORT ###
+
+# Insertion sort is a simple sorting algorithm that works the way we sort playing cards in our hands.
+
+# Write a function to sort a given list using insertion sort.
+
+# Examples:
+
+# Input: arr = [12, 11, 13, 5, 6]
+# Output: [5, 6, 11, 12, 13]
+
+# Input: arr = [64, 34, 25, 12, 22, 11, 90, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 22, 25, 34, 64, 90]
+
+def insertionSort(arr):
+    n = len(arr)
+    for i in range(1, n):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+    return arr
+
+print("insertionSort: ", insertionSort([12, 11, 13, 5, 6]))
+
+### MERGE SORT ###
+
+# Merge sort is a divide and conquer algorithm. It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves.
+
+# Write a function to sort a given list using merge sort.
+
+# Examples:
+
+# Input: arr = [12, 11, 13, 5, 6, 7]
+# Output: [5, 6, 7, 11, 12, 13]
+
+# Input: arr = [64, 34, 25, 12, 22, 11, 90, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 22, 25, 34, 64, 90]
+
+def mergeSort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        L = arr[:mid]
+        R = arr[mid:]
+        mergeSort(L)
+        mergeSort(R)
+        i = j = k = 0
+        while i < len(L) and j < len(R):
+            if L[i] < R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+    return arr
+
+print("mergeSort: ", mergeSort([12, 11, 13, 5, 6, 7]))
+
+### QUICK SORT ###
+
+# Quick sort is a divide and conquer algorithm. It picks an element as pivot and partitions the given array around the picked pivot.
+
+# Write a function to sort a given list using quick sort.
+
+# Examples:
+
+# Input: arr = [10, 7, 8, 9, 1, 5]
+# Output: [1, 5, 7, 8, 9, 10]
+
+# Input: arr = [64, 34, 25, 12, 22, 11, 90, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 22, 25, 34, 64, 90]
+
+def partition(arr, low, high):
+    i = (low - 1)
+    pivot = arr[high]
+    for j in range(low, high):
+        if arr[j] <= pivot:
+            i = i + 1
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    return (i + 1)
+
+def quickSort(arr, low, high):
+    if low < high:
+        pi = partition(arr, low, high)
+        quickSort(arr, low, pi - 1)
+        quickSort(arr, pi + 1, high)
+    return arr
+
+print("quickSort: ", quickSort([10, 7, 8, 9, 1, 5], 0, 5))
+
+### HEAP SORT ###
+
+# Heap sort is a comparison based sorting technique based on Binary Heap data structure. It is similar to selection sort where we first find the maximum element and place the maximum element at the end. We repeat the same process for remaining element.
+
+# Write a function to sort a given list using heap sort.
+
+# Examples:
+
+# Input: arr = [12, 11, 13, 5, 6, 7]
+# Output: [5, 6, 7, 11, 12, 13]
+
+# Input: arr = [64, 34, 25, 12, 22, 11, 90, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 22, 25, 34, 64, 90]
+
+def heapify(arr, n, i):
+    largest = i
+    l = 2 * i + 1
+    r = 2 * i + 2
+    if l < n and arr[i] < arr[l]:
+        largest = l
+    if r < n and arr[largest] < arr[r]:
+        largest = r
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+def heapSort(arr):
+    n = len(arr)
+    for i in range(n, -1, -1):
+        heapify(arr, n, i)
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
+    return arr
+
+print("heapSort: ", heapSort([12, 11, 13, 5, 6, 7]))
+
+### BINARY SEARCH ###
+
+# Binary search is a search algorithm that finds the position of a target value within a sorted array.
+
+# Write a function to search a given list using binary search.
+
+# Examples:
+
+# Input: arr = [2, 3, 4, 10, 40], x = 10
+# Output: 3
+
+# Input: arr = [2, 3, 4, 10, 40], x = 50
+# Output: -1
+
+def binarySearch(arr, l, r, x):
+    if r >= l:
+        mid = l + (r - l) // 2
+        if arr[mid] == x:
+            return mid
+        elif arr[mid] > x:
+            return binarySearch(arr, l, mid - 1, x)
+        else:
+            return binarySearch(arr, mid + 1, r, x)
+    else:
+        return -1
+
+print("binarySearch: ", binarySearch([2, 3, 4, 10, 40], 0, 4, 10))
+
+
+### BINARY SEARCH TREE ###
+# Binary search tree is a node-based binary tree data structure which has the following properties:
+
+# The left subtree of a node contains only nodes with keys lesser than the node’s key.
+
+# The right subtree of a node contains only nodes with keys greater than the node’s key.
+
+# The left and right subtree each must also be a binary search tree.
+
+# There must be no duplicate nodes.
+
+# Write a function to search a given list using binary search tree.
+
+# Examples:
+
+# Input: arr = [2, 3, 4, 10, 40], x = 10
+# Output: 3
+
+# Input: arr = [2, 3, 4, 10, 40], x = 50
+# Output: -1
+
+class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.val = key
+
+def insert(root, node):
+    if root is None:
+        root = node
+    else:
+        if root.val < node.val:
+            if root.right is None:
+                root.right = node
+            else:
+                insert(root.right, node)
+        else:
+            if root.left is None:
+                root.left = node
+            else:
+                insert(root.left, node)
+
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.val)
+        inorder(root.right)
+
+def search(root, key):
+    if root is None or root.val == key:
+        return root
+    if root.val < key:
+        return search(root.right, key)
+    return search(root.left, key)
+
+r = Node(50)
+insert(r, Node(30))
+insert(r, Node(20))
+insert(r, Node(40))
+insert(r, Node(70))
+insert(r, Node(60))
+insert(r, Node(80))
+
+print("binarySearchTree: ", search(r, 80))
+
+
+
+### LINKED LIST ###
+
+# Linked list is a linear data structure, in which the elements are not stored at contiguous memory locations. The elements in a linked list are linked using pointers.
+
+# Write a function to search a given list using linked list.
+
+# Examples:
+
+# Input: arr = [2, 3, 4, 10, 40], x = 10
+
+# Output: 3
+
+# Input: arr = [2, 3, 4, 10, 40], x = 50
+
+# Output: -1
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def search(self, x):
+        current = self.head
+        while current != None:
+            if current.data == x:
+                return True
+            current = current.next
+        return False
+
+llist = LinkedList()
+llist.head = Node(1)
+second = Node(2)
+third = Node(3)
+llist.head.next = second
+second.next = third
+
+print("linked list: ", llist.search(3))
+
+
