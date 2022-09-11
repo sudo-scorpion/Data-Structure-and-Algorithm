@@ -540,3 +540,189 @@ second.next = third
 print("linked list: ", llist.search(3))
 
 
+### GRAPH ###
+
+# Graph is a non-linear data structure consisting of nodes and edges. The nodes are sometimes also referred to as vertices and the edges are lines or arcs that connect any two nodes in the graph.
+
+# Write a function to search a given list using graph.
+
+# Examples:
+
+# Input: arr = [2, 3, 4, 10, 40], x = 10
+
+# Output: 3
+
+# Input: arr = [2, 3, 4, 10, 40], x = 50
+
+# Output: -1
+
+class Graph:
+    def __init__(self, vertices):
+        self.V = vertices
+        self.graph = [[0 for column in range(vertices)] for row in range(vertices)]
+
+    def isSafe(self, v, pos, path):
+        if self.graph[path[pos - 1]][v] == 0:
+            return False
+        for vertex in path:
+            if vertex == v:
+                return False
+        return True
+
+    def hamCycleUtil(self, path, pos):
+        if pos == self.V:
+            if self.graph[path[pos - 1]][path[0]] == 1:
+                return True
+            else:
+                return False
+        for v in range(1, self.V):
+            if self.isSafe(v, pos, path) == True:
+                path[pos] = v
+                if self.hamCycleUtil(path, pos + 1) == True:
+                    return True
+                path[pos] = -1
+        return False
+
+    def hamCycle(self):
+        path = [-1] * self.V
+        path[0] = 0
+        if self.hamCycleUtil(path, 1) == False:
+            print("Solution does not exist")
+            return False
+        self.printSolution(path)
+        return True
+
+    def printSolution(self, path):
+        print("Solution Exists: Following is one Hamiltonian Cycle")
+        for vertex in path:
+            print(vertex, end=" ")
+        print(path[0], "\n")
+
+g1 = Graph(5)
+g1.graph = [[0, 1, 0, 1, 0], [1, 0, 1, 1, 1], [0, 1, 0, 0, 1], [1, 1, 0, 0, 1], [0, 1, 1, 1, 0]]    
+g1.hamCycle()
+
+g2 = Graph(5)
+g2.graph = [[0, 1, 0, 1, 0], [1, 0, 1, 1, 1], [0, 1, 0, 0, 1], [1, 1, 0, 0, 0], [0, 1, 1, 0, 0]]
+g2.hamCycle()
+
+
+### HASH TABLE ###
+# Hash table is a data structure which is used to implement an associative array, a structure that can map keys to values. A hash table uses a hash function to compute an index into an array of buckets or slots, from which the desired value can be found.
+
+# Write a function to search a given list using hash table.
+
+# Examples:
+
+# Input: arr = [2, 3, 4, 10, 40], x = 10
+
+# Output: 3
+
+# Input: arr = [2, 3, 4, 10, 40], x = 50
+
+# Output: -1
+
+class HashTable:
+    def __init__(self):
+        self.MAX = 100
+        self.arr = [[] for i in range(self.MAX)]
+
+    def get_hash(self, key):
+        h = 0
+        for char in key:
+            h += ord(char)
+        return h % self.MAX
+
+    def __getitem__(self, index):
+        h = self.get_hash(index)
+        for element in self.arr[h]:
+            if element[0] == index:
+                return element[1]
+
+    def __setitem__(self, key, value):
+        h = self.get_hash(key)
+        found = False
+        for index, element in enumerate(self.arr[h]):
+            if len(element) == 2 and element[0] == key:
+                self.arr[h][index] = (key, value)
+                found = True
+                break
+        if not found:
+            self.arr[h].append((key, value))
+
+    def __delitem__(self, key):
+        h = self.get_hash(key)
+        for index, element in enumerate(self.arr[h]):
+            if element[0] == key:
+                del self.arr[h][index]
+
+t = HashTable()
+t["march 6"] = 310
+t["march 7"] = 420
+t["march 8"] = 280
+t["march 9"] = 390
+t["march 17"] = 120
+print(t.arr)
+print(t["march 6"])
+del t["march 6"]
+print(t.arr)
+
+
+### HEAP ###
+
+# Heap is a specialized tree-based data structure that satisfies the heap property: if P is a parent node of C, then the key (the value) of P is either greater than or equal to (in a max heap) or less than or equal to (in a min heap) the key of C.
+
+# Write a function to search a given list using heap.
+
+# Examples:
+
+# Input: arr = [2, 3, 4, 10, 40], x = 10
+
+# Output: 3
+
+# Input: arr = [2, 3, 4, 10, 40], x = 50
+
+# Output: -1
+
+class Heap:
+    def __init__(self, arr):
+        self.heap = arr
+        self.size = len(arr)
+        self.build_max_heap()
+
+    def build_max_heap(self):
+        for i in range(self.size // 2, -1, -1):
+            self.max_heapify(i)
+
+    def max_heapify(self, i):
+        left = 2 * i + 1
+        right = 2 * i + 2
+        largest = i
+        if left < self.size and self.heap[left] > self.heap[largest]:
+            largest = left
+        if right < self.size and self.heap[right] > self.heap[largest]:
+            largest = right
+        if largest != i:
+            self.heap[i], self.heap[largest] = self.heap[largest], self.heap[i]
+            self.max_heapify(largest)
+
+    def extract_max(self):
+        max = self.heap[0]
+        self.heap[0] = self.heap[self.size - 1]
+        self.size -= 1
+        self.max_heapify(0)
+        return max
+
+    def search(self, x):
+        for i in range(self.size):
+            if self.heap[i] == x:
+                return i
+        return -1
+
+arr = [2, 3, 4, 10, 40]
+heap = Heap(arr)
+print(heap.search(10))
+print(heap.search(50))
+
+
+
