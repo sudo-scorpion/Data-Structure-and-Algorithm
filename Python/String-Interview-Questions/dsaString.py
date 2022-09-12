@@ -146,3 +146,55 @@ if __name__ == "__main__":
 
 # 6. Time complexity is O(n)
 
+### How do you check if a string contains only digits? ###
+
+def checkDigits(str):
+    for i in str:
+        if i.isdigit() == False:
+            return False
+    return True
+
+# 5. Resultant will be the duplicates
+if __name__ == "__main__":
+    str = "Hello World"
+    print(checkDigits(str))
+
+# 6. Time complexity is O(n)
+
+### How do you count a number of vowels and consonants in a given string? ###
+
+def countVowelsConsonants(str):
+    vowels = "aeiou"
+    vowelsCount = 0
+    consonantsCount = 0
+    for i in str:
+        if i in vowels:
+            vowelsCount += 1
+        else:
+            consonantsCount += 1
+    print("Vowels: ", vowelsCount)
+    print("Consonants: ", consonantsCount)
+
+# 5. Resultant will be the duplicates
+if __name__ == "__main__":
+    str = "Hello World"
+    countVowelsConsonants(str)
+
+# 6. Time complexity is O(n)
+
+### How do you count the occurrence of a given character in a string? ###
+
+def countOccurrence(str, char):
+    count = 0
+    for i in str:
+        if i == char:
+            count += 1
+    return count
+
+# 5. Resultant will be the duplicates
+if __name__ == "__main__":
+    str = "Hello World"
+    char = "l"
+    print(countOccurrence(str, char))
+
+# 6. Time complexity is O(n)
