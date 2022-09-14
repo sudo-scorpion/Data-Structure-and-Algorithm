@@ -1,6 +1,11 @@
+### imports ###
+import heapq
+
+
 ### How do you find the missing number in a given integer array of 1 to 100? ###
 
 # 1. Find the sum of all numbers from 1 to 100
+
 def sumOfNumbers(n):
     sum = 0
     for i in range(1, n+1):
@@ -206,4 +211,89 @@ if __name__ == "__main__":
     arr = [1, 2, 3, 4, 7, 7, 8, 9, 10]
     reverseArray(arr)
     print("Reversed array:", arr)
+
+
+### Given a sorted array of intefers arr and an intger target, find the index of the first and last occurence of target. If target is not found in the array, return [-1, -1]. ###
+
+#Example 1:
+#Input: arr = [5,7,7,8,8,10], target = 8
+#Output: [3,4]
+
+#Example 2:
+#Input: arr = [5,7,7,8,8,10], target = 6
+#Output: [-1,-1]
+
+# 1. use binary search to find the target
+# 2. if the target is found, use two pointers to find the first and last occurence
+# 3. if the target is not found, return [-1, -1]
+
+def searchRange(arr, target):
+    left = 0
+    right = len(arr) -1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            i = mid
+            j = mid
+            while i >= 0 and arr[i] == target:
+                i -= 1
+            while j < len(arr) and arr[j] == target:
+                j += 1
+            return [i+1, j-1]
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return [-1, -1]
+
+# 4. Resultant will be the first and last occurence of the target
+if __name__ == "__main__":
+    arr = [5,7,7,8,8,8,10]
+    target = 8
+    print("First and last occurence of the target:", searchRange(arr, target))
+
+# 5. Time complexity is O(logn)
+
+### Kth Largest Element in an Array ###
+
+#Example 1:
+#Input: [3,2,1,5,6,4] and k = 2
+#Output: 5
+
+#Example 2:
+#Input: [3,2,3,1,2,4,5,5,6] and k = 4
+#Output: 4
+
+# 1. sort the array
+# 2. return the kth largest element
+
+def findKthLargest(arr, k):
+    arr.sort()
+    return arr[-k]
+
+# use heap to find the kth largest element
+def findKthLargestHeap(arr, k):
+    heap = []
+    for i in arr:
+        heapq.heappush(heap, i)
+        if len(heap) > k:
+            heapq.heappop(heap)
+    return heap[0]
+
+# 3. Resultant will be the kth largest element
+if __name__ == "__main__":
+    arr = [3,2,1,5,6,4]
+    k = 3
+    print("Kth largest element:", findKthLargest(arr, k))
+
+    print("Kth largest element:", findKthLargestHeap(arr, k))
+
+# 4. Time complexity is O(nlogn)
+
+
+
+
+
+
+
 
